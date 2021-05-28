@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="beans.Cliente">
+        <id column="Id" name="idcliente" type="integer"/>
+        <property name="dni"/>
+        <property name="nombre"/>
+        <property name="apellidos"/>
+        <property name="direccion"/>
+        <property name="poblacion"/>
+        <property name="telefono"/>
+        <property name="email"/>
+        <property name="clave"/>
+        <property name="baja"/>
+    </class>
+    
+    <class name="beans.Veterinario">
+        <id column="Id" name="idveterinario" type="integer"/>
+        <property name="dni"/>
+        <property name="nombre"/>
+        <property name="apellidos"/>
+        <property name="fechanacimiento"/>
+        <property name="especialidad"/>
+        <property name="clave"/>
+    </class>
+</hibernate-mapping>
