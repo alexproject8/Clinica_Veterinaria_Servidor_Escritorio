@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
@@ -75,7 +77,11 @@ public class FrPrincipal extends javax.swing.JFrame implements Runnable {
      */
     public FrPrincipal() {
         setTitle("Servidor - Clínica veterinaria");
-        setIconImage(new ImageIcon("src/recursos/logotipo.png").getImage());
+        try {
+            setIconImage(ImageIO.read(getClass().getResource("/recursos/logotipo.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(FrPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         initComponents();
 
@@ -761,8 +767,8 @@ public class FrPrincipal extends javax.swing.JFrame implements Runnable {
             java.sql.Connection conexion = sessionImpl.connection();
 
             JasperReport reporte = null;
-            String path = "informeHistorial.jasper";
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            InputStream path = getClass().getResourceAsStream("/recursos/informeHistorial.jasper");
+            //reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
 
             //incremento del numero que lee y graba en un fichero
             int num = leerNumeroHistorial();
@@ -817,8 +823,8 @@ public class FrPrincipal extends javax.swing.JFrame implements Runnable {
             java.sql.Connection conexion = sessionImpl.connection();
 
             JasperReport reporte = null;
-            String path = "informeFactura.jasper";
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            InputStream path = getClass().getResourceAsStream("/recursos/informeFactura.jasper");
+            //reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
 
             //incremento del numero que lee y graba en un fichero
             int num = leerNumeroFactura();
@@ -880,8 +886,8 @@ public class FrPrincipal extends javax.swing.JFrame implements Runnable {
             java.sql.Connection conexion = sessionImpl.connection();
 
             JasperReport reporte = null;
-            String path = "informeFacturaMes.jasper";
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            InputStream path = getClass().getResourceAsStream("/recursos/informeFacturaMes.jasper");
+            //reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
 
             inObj = new ObjectInputStream(ss.getInputStream());
             Date d = (Date) inObj.readObject();
@@ -935,7 +941,7 @@ public class FrPrincipal extends javax.swing.JFrame implements Runnable {
         FileReader f = null;
         String cadena = "0";
         int numeroFactura = 0;
-        File archivo = new File("numero_factura.txt");
+        File archivo = new File("/recursos/numero_factura.txt");
         if (archivo.exists()) {
             try {
 
@@ -968,7 +974,7 @@ public class FrPrincipal extends javax.swing.JFrame implements Runnable {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("numero_factura.txt");
+            fichero = new FileWriter("/recursos/numero_factura.txt");
             pw = new PrintWriter(fichero);
 
             pw.println(++numeroFactura);
@@ -992,7 +998,7 @@ public class FrPrincipal extends javax.swing.JFrame implements Runnable {
     public int leerParaEliminarFactura() {
         FileReader f = null;
         String cadena = "0";
-        File archivo = new File("numero_factura.txt");
+        File archivo = new File("/recursos/numero_factura.txt");
         if (archivo.exists()) {
             try {
 
@@ -1021,7 +1027,7 @@ public class FrPrincipal extends javax.swing.JFrame implements Runnable {
         FileReader f = null;
         String cadena = "0";
         int numeroHistorial = 0;
-        File archivo = new File("numero_historial.txt");
+        File archivo = new File("/recursos/numero_historial.txt");
         if (archivo.exists()) {
             try {
 
@@ -1054,7 +1060,7 @@ public class FrPrincipal extends javax.swing.JFrame implements Runnable {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("numero_historial.txt");
+            fichero = new FileWriter("/recursos/numero_historial.txt");
             pw = new PrintWriter(fichero);
 
             pw.println(++numeroHistorial);
@@ -1078,7 +1084,7 @@ public class FrPrincipal extends javax.swing.JFrame implements Runnable {
     public int leerParaEliminarHistorial() {
         FileReader f = null;
         String cadena = "0";
-        File archivo = new File("numero_historial.txt");
+        File archivo = new File("/recursos/numero_historial.txt");
         if (archivo.exists()) {
             try {
 
